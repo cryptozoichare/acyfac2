@@ -22,7 +22,7 @@ class Page(AbstractPage, PageTypeMixin, MenuMixin, LanguageMixin):
         ApplicationType(
             key="blog",
             title=_("blog"),
-            urlconf="app.blog.urls",
+            urlconf="blog.urls",
         ),
     ]
 

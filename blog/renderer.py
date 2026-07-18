@@ -1,14 +1,16 @@
-from django.utils.html import mark_safe
-from feincms3.renderer import RegionRenderer, template_renderer
+from django.utils.html import format_html, mark_safe
+from feincms3.renderer import RegionRenderer
 
-from . import models
+from .models import RichText, Image, Html
 
 renderer = RegionRenderer()
+renderer.register(RichText, lambda plugin, context: mark_safe(plugin.text))
 renderer.register(
-    models.RichText,
-    lambda plugin, context: mark_safe(plugin.text),
+    Image,
+    lambda plugin, context: format_html(
+        '<figure><img src="{}" alt=""/><figcaption>{}</figcaption></figure>',
+        plugin.image.url,
+        plugin.caption,
+    ),
 )
-renderer.register(
-    models.Image,
-    template_renderer("plugins/image.html"),  # reuse the same template as pages
-)
+renderer.register(Html, lambda plugin, context: mark_safe(plugin.html))
