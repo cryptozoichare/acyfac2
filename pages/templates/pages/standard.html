@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <title>{{ page.title }}</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css" type="text/css">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
 </head>
 <body>
   <h1>{{ page.title }}</h1>
