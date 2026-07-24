@@ -6,14 +6,21 @@ from content_editor.models import Region, create_plugin_base
 from django_prose_editor.fields import ProseEditorField
 from feincms3 import plugins
 from feincms3.applications import reverse_app
-
+from feincms3.utils import upload_to
+from imagefield.fields import ImageField, PPOIField
 
 class Article(models.Model):
     is_active = models.BooleanField(_("is active"), default=False)
     title = models.CharField(_("title"), max_length=200)
     slug = models.SlugField(_("slug"), unique_for_year="publication_date")
     publication_date = models.DateTimeField(_("publication date"), default=timezone.now)
-
+    icon = ImageField(
+        _("icon"),
+        upload_to=upload_to,
+        formats={"icon": ["default", ("crop", (100, 100))]},
+        blank=True,
+        auto_add_fields=True,
+    )
     regions = [Region(key="main", title=_("Main"))]
 
     class Meta:

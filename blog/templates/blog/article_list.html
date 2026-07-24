@@ -19,6 +19,9 @@
 
 {% for article in article_list %}
   <article>
+    {% if article.icon %}
+      <img src="{{ article.icon.icon }}" width="100" height="100" alt="">
+    {% endif %}
     <h2><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h2>
     <p>{{ article.publication_date|date:"d.m.Y" }}</p>
   </article>
